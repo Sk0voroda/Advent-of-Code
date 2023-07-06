@@ -1,7 +1,8 @@
-// Finds Elf with max calories carring
+// https://adventofcode.com/2022/day/1
 
 pub fn max_calories() -> i32 {
-    let calories_data = std::fs::read_to_string("inputs/01.txt").expect("puzzle file is missing");
+    let calories_data =
+        std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle file is missing");
 
     let max_calories = calories_data
         .split("\n\n")
