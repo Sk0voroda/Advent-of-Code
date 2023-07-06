@@ -1,5 +1,5 @@
 mod solutions;
 
 fn main() {
-    // println!("Max calories: {}", solutions::aod_01::max_calories());
+    println!("Max calories: {}", solutions::day01::max_calories());
 }
