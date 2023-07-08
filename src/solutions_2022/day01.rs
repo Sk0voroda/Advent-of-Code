@@ -2,7 +2,8 @@
 
 // part one
 pub fn top_calories() -> usize {
-    let file_data = std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle file is missing");
+    let file_data =
+        std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle day 1 file is missing");
 
     let max_calories = file_data
         .split("\n\n")
@@ -18,7 +19,8 @@ pub fn top_calories() -> usize {
 
 // part two
 pub fn top_three_calories() -> usize {
-    let file_data = std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle file is missing");
+    let file_data =
+        std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle day 1 file is missing");
 
     let mut top_three = file_data
         .split("\n\n")

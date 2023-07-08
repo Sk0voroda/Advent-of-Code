@@ -7,8 +7,9 @@
 // Paper(B, Y) > Rock(A, X)
 // lose 0 points, draw 3 points, win 6 points
 
-// todo: refactor
-fn game_result(game: &str) -> usize {
+// part one
+// TODO: refactor little bit
+pub fn game_result_p_1(game: &str) -> usize {
     match game {
         "A X" => 1 + 3,
         "A Y" => 2 + 6,
@@ -23,15 +24,28 @@ fn game_result(game: &str) -> usize {
     }
 }
 
-// part one
-pub fn rock_paper_scissors() -> usize {
+// part two
+// X - loose, Y - draw, and Z - win
+pub fn game_result_p_2(game: &str) -> usize {
+    match game {
+        "A X" => 3 + 0,
+        "A Y" => 1 + 3,
+        "A Z" => 2 + 6,
+        "B X" => 1 + 0,
+        "B Y" => 2 + 3,
+        "B Z" => 3 + 6,
+        "C X" => 2 + 0,
+        "C Y" => 3 + 3,
+        "C Z" => 1 + 6,
+        _ => panic!("wrong combination"),
+    }
+}
+
+pub fn rock_paper_scissors(game_fn: fn(&str) -> usize) -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/02.txt").expect("puzzle day 2 file is missing");
 
-    let sum = file_data
-        .lines()
-        .map(|line| game_result(line))
-        .sum::<usize>();
+    let sum = file_data.lines().map(|line| game_fn(line)).sum::<usize>();
 
     sum
 }
