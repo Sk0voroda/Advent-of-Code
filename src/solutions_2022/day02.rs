@@ -23,6 +23,7 @@ fn game_result(game: &str) -> usize {
     }
 }
 
+// part one
 pub fn rock_paper_scissors() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/02.txt").expect("puzzle day 2 file is missing");
@@ -32,6 +33,5 @@ pub fn rock_paper_scissors() -> usize {
         .map(|line| game_result(line))
         .sum::<usize>();
 
-    println!("{:?}", sum);
-    0
+    sum
 }
