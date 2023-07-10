@@ -8,5 +8,5 @@ fn main() {
     //     "Day 2 - {} result",
     //     day02::rock_paper_scissors(day02::game_result_p_2)
     // );
-    println!("Day 3 - {}", day03::rucksack_reorganization());
+    println!("Day 3 - {}", day03::rucksack_reorganization_badges());
 }
