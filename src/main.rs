@@ -1,6 +1,7 @@
 mod solutions_2022;
 use solutions_2022::{day01, day02, day03};
 
+// TODO: fuc this shit add TESTS
 fn main() {
     // println!("Day 1 - {} result", day01::top_three_calories_itertools());
 
