@@ -1,5 +1,4 @@
 // https://adventofcode.com/2022/day/3
-use itertools::Itertools;
 
 fn char_to_number(c: char) -> usize {
     match c {
@@ -45,6 +44,7 @@ pub fn rucksack_reorganization_badges() -> usize {
         std::fs::read_to_string("inputs/2022/03.txt").expect("puzzle for day 3 file is missing");
 
     let file_data_as_vec = file_data.split('\n').collect::<Vec<&str>>();
+    // TODO: find out how to make it one liner without `file_data_as_vec` as stand alone var
     let sum_of_badges_chars = file_data_as_vec
         .chunks(3)
         .map(|group| {
@@ -63,7 +63,7 @@ pub fn rucksack_reorganization_badges() -> usize {
                 return priotiry;
             }
 
-            panic!("Something went wrong with unpacking (first, second, third)");
+            panic!("Something went wrong with unpacking (first, second, third)")
         })
         .sum::<usize>();
 
