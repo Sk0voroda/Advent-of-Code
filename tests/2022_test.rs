@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use rust_advert_of_code::solutions_2022::{day01, day02, day03};
+    use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04};
 
     #[test]
     fn day_01_tests() {
@@ -18,5 +18,19 @@ mod tests {
     fn day_03_tests() {
         assert_eq!(day03::rucksack_reorganization(), 8_233);
         assert_eq!(day03::rucksack_reorganization_badges(), 2_821);
+    }
+    #[test]
+    fn day_04_tests() {
+        // ClearRange contains tests
+        let base = day04::clean_range::CleanRange::new(1, 10);
+        let full = day04::clean_range::CleanRange::new(5, 8);
+        let partial_1 = day04::clean_range::CleanRange::new(0, 4);
+        let partial_2 = day04::clean_range::CleanRange::new(7, 12);
+        let not_contained_1 = day04::clean_range::CleanRange::new(12, 15);
+
+        assert_eq!(base.contains(&full), true);
+        assert_eq!(base.contains(&partial_1), false);
+        assert_eq!(base.contains(&partial_2), false);
+        assert_eq!(base.contains(&not_contained_1), false);
     }
 }
