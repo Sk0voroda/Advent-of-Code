@@ -25,20 +25,27 @@ pub mod clean_range {
 
 use clean_range::*;
 
-fn compare(first_range: &str, second_range: &str) {
-    todo!("implement")
-}
-
 pub fn camp_cleanup() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/04.txt").expect("puzzle for day 4 file is missing");
 
-    let ranges_vec = file_data
+    // TODO: rewrite using tuple not vector i guess
+    let num_of_contained_ranges = file_data
         .lines()
-        .map(|line| line.split(',').collect::<Vec<&str>>())
-        .collect::<Vec<Vec<&str>>>();
+        .map(|line| {
+            line.split(',')
+                .map(|ranges| {
+                    let range_values = ranges
+                        .split('-')
+                        .map(|val| val.parse::<usize>().unwrap())
+                        .collect::<Vec<usize>>();
 
-    println!("{:?}", ranges_vec);
-    // let fully_containes = ranges_vec.iter().map(|ranges| {});
-    0
+                    CleanRange::new(range_values[0], range_values[1])
+                })
+                .collect::<Vec<CleanRange>>()
+        })
+        .map(|ranges| CleanRange::contained(&ranges[0], &ranges[1]) as usize)
+        .sum::<usize>();
+
+    num_of_contained_ranges
 }
