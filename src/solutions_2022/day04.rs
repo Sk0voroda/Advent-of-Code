@@ -42,16 +42,18 @@ pub fn camp_cleanup() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/04.txt").expect("puzzle for day 4 file is missing");
 
-    // TODO: rewrite using tuple not vector i guess
     let num_of_contained_ranges = file_data
         .lines()
         // cast line 2-5,4-5 to vec<CleanRange>
         .map(|line| {
             line.split(',')
+                // map range into CleanRange object
                 .map(|ranges| {
-                    let range_values = ranges.split('-').collect::<Vec<&str>>();
+                    let mut range_values = ranges.split('-');
+                    let start = range_values.next().unwrap();
+                    let end = range_values.next().unwrap();
 
-                    CleanRange::new_str(range_values[0], range_values[1])
+                    CleanRange::new_str(start, end)
                 })
                 .collect::<Vec<CleanRange>>()
         })
