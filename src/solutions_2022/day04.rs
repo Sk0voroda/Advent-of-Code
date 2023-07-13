@@ -1,4 +1,6 @@
 pub mod clean_range {
+    use std::fmt::Display;
+
     #[derive(Debug)]
     pub struct CleanRange {
         start: usize,
@@ -13,12 +15,23 @@ pub mod clean_range {
 
             panic!("Error: wrong range! Start of range value should be smaller or equal to the end of range!")
         }
-        // pub fn new(as_string: &str) -> Self {}
+        pub fn new_str(start: &str, end: &str) -> Self {
+            let start = start.parse::<usize>().unwrap();
+            let end = end.parse::<usize>().unwrap();
+
+            CleanRange::new(start, end)
+        }
         pub fn contains(&self, other: &Self) -> bool {
             self.start <= other.start && other.end <= self.end
         }
         pub fn contained(first: &CleanRange, second: &CleanRange) -> bool {
             first.contains(&second) || second.contains(&first)
+        }
+    }
+
+    impl Display for CleanRange {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "CleanRange: {}...{}", self.start, self.end)
         }
     }
 }
@@ -32,15 +45,13 @@ pub fn camp_cleanup() -> usize {
     // TODO: rewrite using tuple not vector i guess
     let num_of_contained_ranges = file_data
         .lines()
+        // cast line 2-5,4-5 to vec<CleanRange>
         .map(|line| {
             line.split(',')
                 .map(|ranges| {
-                    let range_values = ranges
-                        .split('-')
-                        .map(|val| val.parse::<usize>().unwrap())
-                        .collect::<Vec<usize>>();
+                    let range_values = ranges.split('-').collect::<Vec<&str>>();
 
-                    CleanRange::new(range_values[0], range_values[1])
+                    CleanRange::new_str(range_values[0], range_values[1])
                 })
                 .collect::<Vec<CleanRange>>()
         })
