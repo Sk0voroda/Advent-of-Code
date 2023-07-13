@@ -24,7 +24,11 @@ pub mod clean_range {
         pub fn contains(&self, other: &Self) -> bool {
             self.start <= other.start && other.end <= self.end
         }
-        pub fn contained(first: &CleanRange, second: &CleanRange) -> bool {
+        pub fn collide(&self, other: &Self) -> bool {
+            self.start >= other.start && self.start <= other.end
+                || self.end >= other.start && self.start <= other.end
+        }
+        pub fn contained(first: &Self, second: &Self) -> bool {
             first.contains(&second) || second.contains(&first)
         }
     }
@@ -38,6 +42,7 @@ pub mod clean_range {
 
 use clean_range::*;
 
+// part one
 pub fn camp_cleanup() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/04.txt").expect("puzzle for day 4 file is missing");
@@ -61,4 +66,29 @@ pub fn camp_cleanup() -> usize {
         .sum::<usize>();
 
     num_of_contained_ranges
+}
+
+pub fn camp_cleanup_overlaps() -> usize {
+    let file_data =
+        std::fs::read_to_string("inputs/2022/04.txt").expect("puzzle for day 4 file is missing");
+
+    let num_of_overlap_ranges = file_data
+        .lines()
+        // cast line 2-5,4-5 to vec<CleanRange>
+        .map(|line| {
+            line.split(',')
+                // map range into CleanRange object
+                .map(|ranges| {
+                    let mut range_values = ranges.split('-');
+                    let start = range_values.next().unwrap();
+                    let end = range_values.next().unwrap();
+
+                    CleanRange::new_str(start, end)
+                })
+                .collect::<Vec<CleanRange>>()
+        })
+        .map(|ranges| CleanRange::collide(&ranges[0], &ranges[1]) as usize)
+        .sum::<usize>();
+
+    num_of_overlap_ranges
 }

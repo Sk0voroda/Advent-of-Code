@@ -33,5 +33,6 @@ mod tests {
         assert_eq!(base.contains(&partial_2), false);
         assert_eq!(base.contains(&not_contained_1), false);
         assert_eq!(day04::camp_cleanup(), 503);
+        assert_eq!(day04::camp_cleanup_overlaps(), 827);
     }
 }
