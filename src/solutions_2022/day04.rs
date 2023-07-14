@@ -25,8 +25,7 @@ pub mod clean_range {
             self.start <= other.start && other.end <= self.end
         }
         pub fn collide(&self, other: &Self) -> bool {
-            self.start >= other.start && self.start <= other.end
-                || self.end >= other.start && self.start <= other.end
+            self.end >= other.start && self.start <= other.end
         }
         pub fn contained(first: &Self, second: &Self) -> bool {
             first.contains(&second) || second.contains(&first)
