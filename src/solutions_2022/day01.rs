@@ -7,16 +7,15 @@ pub fn top_calories() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle for day 1 file is missing");
 
-    let max_calories = file_data
+    file_data
         .split("\n\n")
         .map(|item| {
             item.split("\n")
                 .map(|cal| cal.parse::<usize>().unwrap_or(0))
                 .sum()
         })
-        .max();
-
-    max_calories.unwrap()
+        .max()
+        .unwrap()
 }
 
 // part two
@@ -27,7 +26,7 @@ pub fn top_three_calories() -> usize {
     let mut top_three = file_data
         .split("\n\n")
         .map(|item| {
-            item.lines()
+            item.split("\n")
                 .map(|cal| cal.parse::<usize>().unwrap_or(0))
                 .sum()
         })
@@ -44,17 +43,15 @@ pub fn top_three_calories_itertools() -> usize {
     let file_data =
         std::fs::read_to_string("inputs/2022/01.txt").expect("puzzle for day 1 file is missing");
 
-    let top_three_sum = file_data
+    file_data
         .split("\n\n")
         .map(|item| {
-            item.lines()
+            item.split('\n')
                 .map(|cal| cal.parse().unwrap_or(0))
                 .sum::<usize>()
         })
         .sorted()
         .rev()
         .take(3)
-        .sum();
-
-    top_three_sum
+        .sum()
 }

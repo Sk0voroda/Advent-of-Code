@@ -1,6 +1,6 @@
 mod solutions_2022;
-use solutions_2022::{day01, day02, day03, day04};
+use solutions_2022::{day01, day02, day03, day04, day05};
 
 fn main() {
-    println!("{}", day04::camp_cleanup_overlaps());
+    day05::supply_stacks();
 }
