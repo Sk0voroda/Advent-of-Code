@@ -22,13 +22,15 @@ impl Stack {
     }
 }
 
-pub fn supply_stacks() {
+pub fn supply_stacks() -> String {
     let file_data =
         std::fs::read_to_string("inputs/2022/05.txt").expect("puzzle for day 5 file is missing");
 
     let mut data_iter = file_data.split("\n\n");
     let crate_data = data_iter.next().unwrap();
     let moves_data = data_iter.next().unwrap();
+
+    println!("{}", crate_data);
 
     // TODO: move to separate parse func
     let num_of_stacks: usize = crate_data
@@ -44,12 +46,9 @@ pub fn supply_stacks() {
         stacks.push(Stack::new(i));
     }
 
-    println!("number of stacks = {}", num_of_stacks);
-    println!("{}", crate_data);
     // removing last indexing line before crate parsing
     let crate_vec = crate_data.lines().collect::<Vec<&str>>();
     let crate_vec = crate_vec[..crate_vec.len() - 1].to_vec();
-
     // filtering redundant chars from lines
     let crate_vec = crate_vec
         .iter()
@@ -64,5 +63,32 @@ pub fn supply_stacks() {
         });
     });
 
-    println!("{:?}", stacks);
+    moves_data.lines().for_each(|line| {
+        let mut moves = line
+            .split(' ')
+            .skip(1)
+            .step_by(2)
+            .map(|n| n.parse::<usize>().unwrap());
+
+        let nums = moves.next().unwrap_or(0);
+        let from = moves.next().unwrap_or(0) - 1;
+        let to = moves.next().unwrap_or(0) - 1;
+
+        // stacks[from].crates.drain(range);
+        for _ in 0..nums {
+            let tmp = stacks[from].crates.remove(0);
+            stacks[to].crates.insert(0, tmp);
+
+            println!("from {:?}", stacks[from]);
+            println!("to {:?}", stacks[to]);
+        }
+    });
+
+    let result = stacks
+        .iter()
+        .map(|stack| stack.crates[0])
+        .collect::<String>();
+
+    println!("{}", result);
+    result
 }
