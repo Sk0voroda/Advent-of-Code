@@ -30,8 +30,6 @@ pub fn supply_stacks() -> String {
     let crate_data = data_iter.next().unwrap();
     let moves_data = data_iter.next().unwrap();
 
-    println!("{}", crate_data);
-
     // TODO: move to separate parse func
     let num_of_stacks: usize = crate_data
         .lines()
@@ -74,21 +72,14 @@ pub fn supply_stacks() -> String {
         let from = moves.next().unwrap_or(0) - 1;
         let to = moves.next().unwrap_or(0) - 1;
 
-        // stacks[from].crates.drain(range);
         for _ in 0..nums {
             let tmp = stacks[from].crates.remove(0);
             stacks[to].crates.insert(0, tmp);
-
-            println!("from {:?}", stacks[from]);
-            println!("to {:?}", stacks[to]);
         }
     });
 
-    let result = stacks
+    stacks
         .iter()
         .map(|stack| stack.crates[0])
-        .collect::<String>();
-
-    println!("{}", result);
-    result
+        .collect::<String>()
 }

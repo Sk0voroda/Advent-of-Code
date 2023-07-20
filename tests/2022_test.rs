@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04};
+    use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04, day05};
 
     #[test]
     fn day_01_tests() {
@@ -34,5 +34,10 @@ mod tests {
         assert_eq!(base.contains(&not_contained_1), false);
         assert_eq!(day04::camp_cleanup(), 503);
         assert_eq!(day04::camp_cleanup_overlaps(), 827);
+    }
+    #[test]
+    fn day_05_tests() {
+        assert_eq!(day05::supply_stacks(), "ZWHVFWQWW");
+        // assert_eq!(day05::rucksack_reorganization_badges(), 2_821);
     }
 }

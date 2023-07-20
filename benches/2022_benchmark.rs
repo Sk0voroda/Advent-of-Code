@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04};
+use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04, day05};
 
 fn bench_day_01(c: &mut Criterion) {
     c.bench_function("Adven of code Day 1, part one", |b| {
@@ -45,6 +45,21 @@ fn bench_day_04(c: &mut Criterion) {
         b.iter(|| day04::camp_cleanup_overlaps());
     });
 }
+fn bench_day_05(c: &mut Criterion) {
+    c.bench_function("Adven of code Day 5, part one", |b| {
+        b.iter(|| day05::supply_stacks());
+    });
 
-criterion_group!(benches, bench_day_01, bench_day_02, bench_day_03);
+    // c.bench_function("Adven of code Day 4, part two", |b| {
+    //     b.iter(|| day04::camp_cleanup_overlaps());
+    // });
+}
+
+criterion_group!(
+    benches,
+    bench_day_01,
+    bench_day_02,
+    bench_day_03,
+    bench_day_04
+);
 criterion_main!(benches);
