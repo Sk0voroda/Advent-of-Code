@@ -1,35 +1,17 @@
 // need fn to parse init crate state
 
 #[derive(Debug)]
-struct Crate {
-    name: char,
-    id: usize,
-    stack_id: usize,
-}
-
-#[derive(Debug)]
 struct Stack {
-    id: usize,
     crates: Vec<char>,
 }
 
 impl Stack {
     fn new(id: usize) -> Self {
-        Self {
-            id: id,
-            crates: Vec::new(),
-        }
+        Self { crates: Vec::new() }
     }
 }
 
-pub fn supply_stacks() -> String {
-    let file_data =
-        std::fs::read_to_string("inputs/2022/05.txt").expect("puzzle for day 5 file is missing");
-
-    let mut data_iter = file_data.split("\n\n");
-    let crate_data = data_iter.next().unwrap();
-    let moves_data = data_iter.next().unwrap();
-
+fn crate_parse(crate_data: &str) -> Vec<Stack> {
     // TODO: move to separate parse func
     let num_of_stacks: usize = crate_data
         .lines()
@@ -61,6 +43,20 @@ pub fn supply_stacks() -> String {
         });
     });
 
+    stacks
+}
+
+// TODO: refactor little but
+pub fn supply_stacks() -> String {
+    let file_data =
+        std::fs::read_to_string("inputs/2022/05.txt").expect("puzzle for day 5 file is missing");
+
+    let mut data_iter = file_data.split("\n\n");
+    let crate_data = data_iter.next().unwrap();
+    let moves_data = data_iter.next().unwrap();
+
+    let mut stacks = crate_parse(&crate_data);
+
     moves_data.lines().for_each(|line| {
         let mut moves = line
             .split(' ')
@@ -68,13 +64,52 @@ pub fn supply_stacks() -> String {
             .step_by(2)
             .map(|n| n.parse::<usize>().unwrap());
 
-        let nums = moves.next().unwrap_or(0);
-        let from = moves.next().unwrap_or(0) - 1;
-        let to = moves.next().unwrap_or(0) - 1;
+        let nums = moves.next().unwrap();
+        let from = moves.next().unwrap() - 1;
+        let to = moves.next().unwrap() - 1;
 
         for _ in 0..nums {
             let tmp = stacks[from].crates.remove(0);
             stacks[to].crates.insert(0, tmp);
+        }
+    });
+
+    stacks
+        .iter()
+        .map(|stack| stack.crates[0])
+        .collect::<String>()
+}
+
+pub fn supply_stacks_multiple() -> String {
+    let file_data =
+        std::fs::read_to_string("inputs/2022/05.txt").expect("puzzle for day 5 file is missing");
+
+    let mut data_iter = file_data.split("\n\n");
+    let crate_data = data_iter.next().unwrap();
+    let moves_data = data_iter.next().unwrap();
+
+    let mut stacks = crate_parse(&crate_data);
+
+    moves_data.lines().for_each(|line| {
+        let mut moves = line
+            .split(' ')
+            .skip(1)
+            .step_by(2)
+            .map(|n| n.parse::<usize>().unwrap());
+
+        let nums = moves.next().unwrap();
+        let from = moves.next().unwrap() - 1;
+        let to = moves.next().unwrap() - 1;
+
+        let mut tmp: Vec<char> = vec![];
+
+        for _ in 0..nums {
+            let ch = stacks[from].crates.remove(0);
+            tmp.push(ch);
+        }
+
+        for ch in tmp.iter().rev() {
+            stacks[to].crates.insert(0, *ch);
         }
     });
 

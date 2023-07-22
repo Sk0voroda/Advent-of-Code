@@ -60,6 +60,7 @@ criterion_group!(
     bench_day_01,
     bench_day_02,
     bench_day_03,
-    bench_day_04
+    bench_day_04,
+    bench_day_05
 );
 criterion_main!(benches);

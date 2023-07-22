@@ -38,6 +38,6 @@ mod tests {
     #[test]
     fn day_05_tests() {
         assert_eq!(day05::supply_stacks(), "ZWHVFWQWW");
-        // assert_eq!(day05::rucksack_reorganization_badges(), 2_821);
+        assert_eq!(day05::supply_stacks_multiple(), "HZFZCCWWV");
     }
 }
