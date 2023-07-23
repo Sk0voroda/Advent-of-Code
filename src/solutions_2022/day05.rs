@@ -11,6 +11,7 @@ impl Stack {
     }
 }
 
+#[inline]
 fn crate_parse(crate_data: &str) -> Vec<Stack> {
     // TODO: move to separate parse func
     let num_of_stacks: usize = crate_data
@@ -69,8 +70,12 @@ pub fn supply_stacks() -> String {
         let to = moves.next().unwrap() - 1;
 
         for _ in 0..nums {
-            let tmp = stacks[from].crates.remove(0);
-            stacks[to].crates.insert(0, tmp);
+            if stacks[from].crates.len() > 0 {
+                let tmp = stacks[from].crates.remove(0);
+                stacks[to].crates.insert(0, tmp);
+            } else {
+                panic!("Stacks array with id - {} is empty", from)
+            }
         }
     });
 
@@ -104,8 +109,12 @@ pub fn supply_stacks_multiple() -> String {
         let mut tmp: Vec<char> = vec![];
 
         for _ in 0..nums {
-            let ch = stacks[from].crates.remove(0);
-            tmp.push(ch);
+            if stacks[from].crates.len() > 0 {
+                let ch = stacks[from].crates.remove(0);
+                tmp.push(ch);
+            } else {
+                panic!("Stacks array with id - {} is empty", from)
+            }
         }
 
         for ch in tmp.iter().rev() {
