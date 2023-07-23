@@ -1,5 +1,7 @@
 // need fn to parse init crate state
 
+use std::ops::ControlFlow;
+
 #[derive(Debug)]
 struct Stack {
     crates: Vec<char>,
@@ -106,7 +108,7 @@ pub fn supply_stacks_multiple() -> String {
         let from = moves.next().unwrap() - 1;
         let to = moves.next().unwrap() - 1;
 
-        let mut tmp: Vec<char> = vec![];
+        let mut tmp: Vec<char> = Vec::with_capacity(nums);
 
         for _ in 0..nums {
             if stacks[from].crates.len() > 0 {
