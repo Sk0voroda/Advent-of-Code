@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04, day05};
+    use rust_advert_of_code::solutions_2022::{day01, day02, day03, day04, day05, day06};
 
     #[test]
     fn day_01_tests() {
@@ -39,5 +39,9 @@ mod tests {
     fn day_05_tests() {
         assert_eq!(day05::supply_stacks(), "ZWHVFWQWW");
         assert_eq!(day05::supply_stacks_multiple(), "HZFZCCWWV");
+    }
+    #[test]
+    fn day_06_tests() {
+        assert_eq!(day06::tuning_troble(), 1766);
     }
 }
